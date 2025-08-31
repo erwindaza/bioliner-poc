@@ -1,25 +1,26 @@
-// api/generate.js - Nuestra Función Segura en Vercel
+// api/generate.js - Función Segura en Vercel (Versión a Prueba de Balas)
 
 export default async function handler(request, response) {
-  // Solo permitimos peticiones POST
+  // 1. Solo permitimos peticiones POST
   if (request.method !== 'POST') {
-    return response.status(405).json({ message: 'Method Not Allowed' });
+    return response.status(405).json({ error: 'Método no permitido. Solo se aceptan POST.' });
+  }
+
+  // 2. Verificamos la API Key en el servidor
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    console.error("ERROR CRÍTICO: La variable de entorno GEMINI_API_KEY no está configurada en Vercel.");
+    return response.status(500).json({ error: 'Error de configuración del servidor: Falta la API Key.' });
   }
 
   try {
+    // 3. Obtenemos la idea del usuario del cuerpo de la petición
     const { userIdea } = request.body;
-    if (!userIdea) {
-      return response.status(400).json({ error: 'La idea del proyecto es requerida.' });
+    if (!userIdea || typeof userIdea !== 'string' || userIdea.trim() === '') {
+      return response.status(400).json({ error: 'La descripción del proyecto no puede estar vacía.' });
     }
 
-    // Obtenemos la llave secreta de las variables de entorno de Vercel
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-        throw new Error("API Key no configurada en el servidor.");
-    }
-    
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
     const systemPrompt = `Actúa como un ingeniero experto en geosintéticos de la empresa Bioliner. 
     Tu tarea es tomar la idea de un cliente y convertirla en una descripción técnica breve y profesional.
     - Usa un tono profesional y confiado.
@@ -32,6 +33,7 @@ export default async function handler(request, response) {
         systemInstruction: { parts: [{ text: systemPrompt }] },
     };
 
+    // 4. Hacemos la llamada a la API de Gemini
     const geminiResponse = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -39,23 +41,25 @@ export default async function handler(request, response) {
     });
 
     if (!geminiResponse.ok) {
-        const errorText = await geminiResponse.text();
-        console.error("Error desde la API de Gemini:", errorText);
-        throw new Error(`Error en la API de Gemini: ${geminiResponse.statusText}`);
+        const errorDetails = await geminiResponse.text();
+        console.error("Error desde la API de Gemini:", errorDetails);
+        throw new Error(`La API de Gemini devolvió un error: ${geminiResponse.statusText}`);
     }
 
     const result = await geminiResponse.json();
     const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!text) {
-        throw new Error('No se recibió una respuesta válida de la IA.');
+        console.error("Respuesta de Gemini sin texto:", JSON.stringify(result));
+        throw new Error('La respuesta de la IA no contenía texto válido.');
     }
 
-    // Enviamos la respuesta de vuelta al navegador
+    // 5. Enviamos la respuesta correcta de vuelta al navegador
     return response.status(200).json({ text });
 
   } catch (error) {
-    console.error("Error en la función del servidor:", error);
-    return response.status(500).json({ error: 'Hubo un problema en el servidor al generar la descripción.' });
+    console.error("Error en la función del servidor (api/generate.js):", error);
+    return response.status(500).json({ error: 'Hubo un problema en nuestros servidores al generar la descripción.' });
   }
 }
+

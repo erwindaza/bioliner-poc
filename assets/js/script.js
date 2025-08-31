@@ -1,17 +1,18 @@
-// assets/js/script.js - Este es el código que corre en el navegador del visitante
+// assets/js/script.js - Este es el código que corre en el navegador del visitante (Versión Final Unificada)
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- INICIALIZACIÓN DE AOS (ANIMATE ON SCROLL) ---
     AOS.init({ duration: 800, once: true });
 
-    // --- LÓGICA DEL ASISTENTE DE IA ---
+    // --- LÓGICA DEL ASISTENTE DE IA (VERSIÓN SEGURA Y FUNCIONAL) ---
     const generateBtn = document.getElementById('generate-btn');
     const projectIdea = document.getElementById('project-idea');
     const resultContainer = document.getElementById('ai-result-container');
 
     if (generateBtn) {
         generateBtn.addEventListener('click', async () => {
-            const userIdea = projectIdea.value;
+            const userIdea = projectIdea.value.trim();
             if (!userIdea) {
                 alert('Por favor, describe tu idea de proyecto.');
                 return;
@@ -22,18 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
             generateBtn.textContent = 'Generando...';
             
             try {
-                // Ahora llamamos a nuestro "puente seguro" en Vercel
+                // Llamamos a nuestro "puente seguro" en Vercel
                 const response = await fetch('/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ userIdea: userIdea }),
                 });
+                
+                const result = await response.json();
 
                 if (!response.ok) {
-                    throw new Error('La respuesta del servidor no fue exitosa.');
+                    // Si el servidor devuelve un error, lo mostramos
+                    throw new Error(result.error || 'Hubo un problema en el servidor.');
                 }
-
-                const result = await response.json();
                 
                 if (result.text) {
                     resultContainer.innerHTML = `<div class="ai-result-box">${result.text.replace(/\n/g, '<br>')}</div>`;
@@ -42,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
             } catch (error) {
-                console.error('Error al llamar al puente seguro:', error);
-                resultContainer.innerHTML = `<div class="status-error">Hubo un problema al generar la descripción. Por favor, inténtalo de nuevo.</div>`;
+                console.error('Error al llamar al endpoint /api/generate:', error);
+                resultContainer.innerHTML = `<div class="status-error">Error: ${error.message} Por favor, inténtalo de nuevo.</div>`;
             } finally {
                 generateBtn.disabled = false;
                 generateBtn.textContent = 'Generar Descripción';
@@ -51,9 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DEL FORMULARIO DE CONTACTO ---
+    // --- LÓGICA DEL FORMULARIO DE CONTACTO (VERSIÓN QUE YA FUNCIONA) ---
     const contactForm = document.getElementById('contact-form');
-    // ... (El resto del código del formulario sigue igual y funciona perfecto)
     const submitBtn = document.getElementById('submit-btn');
     const formStatus = document.getElementById('form-status');
 
