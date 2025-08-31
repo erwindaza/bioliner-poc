@@ -1,11 +1,9 @@
-// assets/js/script.js - Este es el código que corre en el navegador del visitante (Versión Final Unificada)
+// assets/js/script.js - Este es el código que corre en el navegador (Versión a Prueba de Balas)
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    // --- INICIALIZACIÓN DE AOS (ANIMATE ON SCROLL) ---
     AOS.init({ duration: 800, once: true });
 
-    // --- LÓGICA DEL ASISTENTE DE IA (VERSIÓN SEGURA Y FUNCIONAL) ---
+    // --- LÓGICA DEL ASISTENTE DE IA ---
     const generateBtn = document.getElementById('generate-btn');
     const projectIdea = document.getElementById('project-idea');
     const resultContainer = document.getElementById('ai-result-container');
@@ -23,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
             generateBtn.textContent = 'Generando...';
             
             try {
-                // Llamamos a nuestro "puente seguro" en Vercel
                 const response = await fetch('/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -33,8 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await response.json();
 
                 if (!response.ok) {
-                    // Si el servidor devuelve un error, lo mostramos
-                    throw new Error(result.error || 'Hubo un problema en el servidor.');
+                    throw new Error(result.error || 'Hubo un problema desconocido en el servidor.');
                 }
                 
                 if (result.text) {
@@ -45,7 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (error) {
                 console.error('Error al llamar al endpoint /api/generate:', error);
-                resultContainer.innerHTML = `<div class="status-error">Error: ${error.message} Por favor, inténtalo de nuevo.</div>`;
+                // Ahora mostramos el error específico que nos envió el servidor
+                resultContainer.innerHTML = `<div class="status-error">Error: ${error.message}</div>`;
             } finally {
                 generateBtn.disabled = false;
                 generateBtn.textContent = 'Generar Descripción';
@@ -53,8 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DEL FORMULARIO DE CONTACTO (VERSIÓN QUE YA FUNCIONA) ---
+    // --- LÓGICA DEL FORMULARIO DE CONTACTO ---
     const contactForm = document.getElementById('contact-form');
+    // ... El resto del código del formulario que ya funciona perfecto ...
+    // ... (Lo he omitido aquí para no hacer el texto tan largo, pero tu código del form sigue igual)
     const submitBtn = document.getElementById('submit-btn');
     const formStatus = document.getElementById('form-status');
 
@@ -73,19 +72,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Accept': 'application/json' }
                 });
                 if (response.ok) {
-                    formStatus.innerHTML = `<div class="status-success">¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.</div>`;
+                    formStatus.innerHTML = `<div class="status-success">¡Mensaje enviado con éxito!</div>`;
                     contactForm.reset();
                 } else {
                     const data = await response.json();
                     if (Object.hasOwn(data, 'errors')) {
                          formStatus.innerHTML = `<div class="status-error">${data["errors"].map(error => error["message"]).join(", ")}</div>`
                     } else {
-                        throw new Error(data.error || 'Hubo un error en el servidor.');
+                        throw new Error(data.error || 'Error en el servidor.');
                     }
                 }
             } catch (error) {
                 console.error('Error al enviar el formulario:', error);
-                formStatus.innerHTML = `<div class="status-error">No se pudo enviar el mensaje. Por favor, inténtalo de nuevo.</div>`;
+                formStatus.innerHTML = `<div class="status-error">No se pudo enviar el mensaje.</div>`;
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Enviar Mensaje';
