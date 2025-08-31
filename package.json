@@ -1,9 +1,6 @@
 {
-  "name": "bioliner-poc",
+  "name": "bioliner-poc-final",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "start": "node api/generate.js"
-  },
-  "dependencies": {}
+  "type": "module"
 }
