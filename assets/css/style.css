@@ -1,16 +1,16 @@
-/* Definimos variables de color para mantener la consistencia.
-  Esta es una práctica de CSS avanzado.
+/*
+  Archivo de Estilos V4 para Bioliner - Tema Verde
+  CSS más avanzado con variables, gradientes y efectos de Glassmorphism.
 */
 :root {
-    --color-primary: #1e3a8a; /* Azul oscuro de la marca */
-    --color-secondary: #2563eb; /* Azul brillante para botones y links */
-    --color-light: #f9fafb; /* Gris muy claro para fondos */
-    --color-dark-text: #111827; /* Texto principal oscuro */
-    --color-light-text: #6b7280; /* Texto secundario más claro */
+    --color-primary-dark: #064e3b;  /* Verde Bosque Oscuro */
+    --color-primary: #10b981;       /* Verde Esmeralda (Principal) */
+    --color-accent: #6ee7b7;       /* Verde Menta (Acentos) */
+    --color-light: #f0fdf4;         /* Verde muy claro para fondos */
+    --color-dark-text: #064e3b;     /* Texto principal oscuro */
+    --color-light-text: #4b5563;
 }
 
-/* Aplicamos la fuente personalizada y un scroll suave a toda la página.
-*/
 body {
     font-family: 'Readex Pro', sans-serif;
     scroll-behavior: smooth;
@@ -18,41 +18,79 @@ body {
     color: var(--color-dark-text);
 }
 
-/* Estilo para el Hero Section con un fondo de imagen y un gradiente sutil.
-  RECUERDA cambiar la URL de la imagen por una de alta calidad.
-*/
+/* Hero Section con gradiente verde y tu imagen de fondo */
 .hero-section {
-    background-image: url('https://images.unsplash.com/photo-1505455176121-8205a26a96f1?q=80&w=2070&auto=format&fit=crop');
+    background-image: linear-gradient(45deg, rgba(6, 78, 59, 0.85), rgba(16, 185, 129, 0.7)), url('../images/hero-background.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Efecto Parallax simple */
+    background-attachment: fixed;
 }
 
-/* Estilos personalizados para las tarjetas de servicio.
-  Aunque usamos Tailwind, podemos añadir clases propias para agrupar estilos.
-*/
-.service-card {
-    @apply bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300;
+/* Componentes reutilizables */
+.button-primary {
+    @apply bg-green-500 text-white font-bold py-2 px-5 rounded-lg transition-all duration-300 transform hover:scale-105 hover:bg-green-600 shadow-md hover:shadow-lg disabled:bg-gray-400 disabled:scale-100;
+}
+.button-secondary {
+    @apply bg-white text-green-800 font-bold py-3 px-8 rounded-lg transition-all duration-300 text-lg transform hover:scale-105 hover:bg-gray-200 inline-block shadow-lg hover:shadow-xl;
+}
+.nav-link {
+    @apply text-gray-600 hover:text-green-600 font-semibold transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-green-500 after:bottom-0 after:left-0 after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
 }
 
-.icon-container {
-    @apply w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-6;
+/* Tarjetas de Servicio V2 */
+.service-card-v2 {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-b-4 border-transparent hover:border-green-500;
+}
+.service-image {
+    @apply w-full h-48 object-cover;
 }
 
-/* Estilos base para los inputs del formulario para no repetir clases en el HTML.
-  @apply es una directiva de Tailwind que nos permite usar sus clases aquí.
-*/
+/* Tarjetas de Proyecto */
+.project-card {
+    @apply relative rounded-xl overflow-hidden shadow-lg group cursor-pointer;
+}
+.project-image {
+    @apply w-full h-full object-cover transition-transform duration-500 group-hover:scale-110;
+}
+.project-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-8 flex flex-col justify-end text-white;
+    @apply opacity-0 group-hover:opacity-100 transition-opacity duration-500;
+}
+
+/* Nueva Sección de Call to Action (CTA) con gradiente */
+.cta-section {
+    @apply py-20 bg-gradient-to-r from-green-600 to-emerald-800;
+}
+
+
+/* Formulario */
 .form-input {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300;
+    @apply w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300;
 }
 
-/*
-  Clases para los mensajes de estado del formulario (éxito y error)
-*/
 .status-success {
-    @apply text-green-700 bg-green-100 p-4 rounded-lg;
+    @apply text-green-800 bg-green-100 p-4 rounded-lg border border-green-200;
+}
+.status-error {
+    @apply text-red-800 bg-red-100 p-4 rounded-lg border border-red-200;
 }
 
-.status-error {
-    @apply text-red-700 bg-red-100 p-4 rounded-lg;
+/* Sección IA */
+#ai-result-container {
+    @apply min-h-[100px] mt-6;
 }
+.ai-result-box {
+    @apply bg-white p-6 rounded-lg border border-green-200 text-gray-700 animate-fade-in;
+}
+.loading-spinner {
+    @apply w-8 h-8 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mx-auto;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+}
+
