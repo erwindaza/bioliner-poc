@@ -1,20 +1,18 @@
 // api/generate.js - Función Segura en Vercel (Versión a Prueba de Balas)
 
 export default async function handler(request, response) {
-  // 1. Solo permitimos peticiones POST
-  if (request.method !== 'POST') {
-    return response.status(405).json({ error: 'Método no permitido. Solo se aceptan POST.' });
-  }
-
-  // 2. Verificamos la API Key en el servidor
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    console.error("ERROR CRÍTICO: La variable de entorno GEMINI_API_KEY no está configurada en Vercel.");
-    return response.status(500).json({ error: 'Error de configuración del servidor: Falta la API Key.' });
-  }
-
+  // 1. Envolvemos TODO en un try...catch para que NUNCA crashee
   try {
-    // 3. Obtenemos la idea del usuario del cuerpo de la petición
+    if (request.method !== 'POST') {
+      return response.status(405).json({ error: 'Método no permitido.' });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.error("ERROR CRÍTICO: GEMINI_API_KEY no está configurada en Vercel.");
+      return response.status(500).json({ error: 'Error de configuración del servidor: Falta la API Key.' });
+    }
+
     const { userIdea } = request.body;
     if (!userIdea || typeof userIdea !== 'string' || userIdea.trim() === '') {
       return response.status(400).json({ error: 'La descripción del proyecto no puede estar vacía.' });
@@ -33,33 +31,29 @@ export default async function handler(request, response) {
         systemInstruction: { parts: [{ text: systemPrompt }] },
     };
 
-    // 4. Hacemos la llamada a la API de Gemini
     const geminiResponse = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
     });
 
+    const result = await geminiResponse.json();
+
     if (!geminiResponse.ok) {
-        const errorDetails = await geminiResponse.text();
-        console.error("Error desde la API de Gemini:", errorDetails);
-        throw new Error(`La API de Gemini devolvió un error: ${geminiResponse.statusText}`);
+        const errorMessage = result?.error?.message || 'Error desconocido desde la API de Gemini.';
+        console.error("Error desde la API de Gemini:", errorMessage);
+        throw new Error(errorMessage);
     }
 
-    const result = await geminiResponse.json();
     const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-
     if (!text) {
-        console.error("Respuesta de Gemini sin texto:", JSON.stringify(result));
         throw new Error('La respuesta de la IA no contenía texto válido.');
     }
 
-    // 5. Enviamos la respuesta correcta de vuelta al navegador
     return response.status(200).json({ text });
 
   } catch (error) {
-    console.error("Error en la función del servidor (api/generate.js):", error);
-    return response.status(500).json({ error: 'Hubo un problema en nuestros servidores al generar la descripción.' });
+    console.error("Error en la función del servidor (api/generate.js):", error.message);
+    return response.status(500).json({ error: `Hubo un problema en nuestros servidores: ${error.message}` });
   }
 }
-
