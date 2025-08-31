@@ -1,5 +1,5 @@
-// api/generate.js - Función Segura en Vercel (Versión Cero-Config)
-// Vercel detectará este archivo y usará su motor de Node.js automáticamente.
+// api/generate.js - Función Segura en Vercel (Versión Final)
+// Vercel ya incluye 'fetch' de forma nativa, no necesitamos paquetes externos.
 
 export default async function handler(request, response) {
   try {
@@ -56,3 +56,4 @@ export default async function handler(request, response) {
     console.error("Error en la función del servidor (api/generate.js):", error.message);
     return response.status(500).json({ error: `Hubo un problema en nuestros servidores: ${error.message}` });
   }
+}
