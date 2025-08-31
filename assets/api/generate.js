@@ -1,7 +1,9 @@
-// api/generate.js - Función Segura en Vercel (Versión a Prueba de Balas)
+// api/generate.js - Función Segura en Vercel (Sintaxis CommonJS Infalible)
 
-export default async function handler(request, response) {
-  // 1. Envolvemos TODO en un try...catch para que NUNCA crashee
+// Usamos 'require' en lugar de 'import' para máxima compatibilidad.
+const fetch = require('node-fetch');
+
+module.exports = async (request, response) => {
   try {
     if (request.method !== 'POST') {
       return response.status(405).json({ error: 'Método no permitido.' });
@@ -50,11 +52,11 @@ export default async function handler(request, response) {
         throw new Error('La respuesta de la IA no contenía texto válido.');
     }
 
+    // Enviamos la respuesta correcta de vuelta al navegador
     return response.status(200).json({ text });
 
   } catch (error) {
     console.error("Error en la función del servidor (api/generate.js):", error.message);
     return response.status(500).json({ error: `Hubo un problema en nuestros servidores: ${error.message}` });
   }
-}
-
+};
