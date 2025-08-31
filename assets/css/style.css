@@ -1,5 +1,5 @@
 /*
-  Archivo de Estilos V8 para Bioliner - Corrección Final UI/UX
+  Archivo de Estilos V9 para Bioliner - Solución Definitiva UI/UX
 */
 :root {
     --color-primary-dark: #064e3b;
@@ -34,10 +34,11 @@ body {
     @apply text-gray-600 hover:text-green-600 font-semibold transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-green-500 after:bottom-0 after:left-0 after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
 }
 
-/* --- CORRECCIÓN UI/UX V2: IMÁGENES Y TARJETAS HOMOGÉNEAS --- */
-.service-card-v3 {
-    @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-b-4 border-transparent hover:border-green-500 flex flex-col;
-    /* Usamos flexbox para asegurar que todas las tarjetas ocupen la misma altura */
+/* --- SOLUCIÓN DEFINITIVA UI/UX: TARJETAS DE SERVICIO --- */
+.service-card-final {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-b-4 border-transparent hover:border-green-500;
+    display: flex; /* Activa Flexbox */
+    flex-direction: column; /* Apila los elementos verticalmente */
 }
 .service-image-container {
     @apply w-full overflow-hidden;
@@ -45,6 +46,14 @@ body {
 }
 .service-image {
     @apply w-full h-full object-cover; /* La imagen cubre el contenedor sin distorsionarse */
+}
+.content-wrapper {
+    flex-grow: 1; /* Esto es clave: fuerza a esta sección a crecer y ocupar el espacio disponible */
+    display: flex;
+    flex-direction: column;
+}
+.content-wrapper p {
+    flex-grow: 1; /* Fuerza al párrafo a crecer, alineando todos los títulos */
 }
 
 /* --- PROYECTOS Y CTA --- */
@@ -62,9 +71,9 @@ body {
     @apply py-20 bg-gradient-to-r from-green-600 to-emerald-800;
 }
 
-/* --- CORRECCIÓN UI/UX V2: FORMULARIO MEJORADO --- */
+/* --- SOLUCIÓN DEFINITIVA UI/UX: FORMULARIO --- */
 .form-input {
-    @apply w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 text-base shadow-inner;
+    @apply w-full px-4 py-3 bg-gray-100 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 text-base shadow-inner;
 }
 .form-input::placeholder {
     @apply text-gray-400;
@@ -85,5 +94,4 @@ body {
 .loading-spinner { @apply w-8 h-8 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mx-auto; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
-
 
