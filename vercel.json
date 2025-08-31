@@ -1,8 +1,0 @@
-{
-    "functions": {
-        "api/generate.js": {
-            "memory": 1024,
-            "maxDuration": 15
-        }
-    }
-}
