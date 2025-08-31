@@ -1,0 +1,58 @@
+/* Definimos variables de color para mantener la consistencia.
+  Esta es una práctica de CSS avanzado.
+*/
+:root {
+    --color-primary: #1e3a8a; /* Azul oscuro de la marca */
+    --color-secondary: #2563eb; /* Azul brillante para botones y links */
+    --color-light: #f9fafb; /* Gris muy claro para fondos */
+    --color-dark-text: #111827; /* Texto principal oscuro */
+    --color-light-text: #6b7280; /* Texto secundario más claro */
+}
+
+/* Aplicamos la fuente personalizada y un scroll suave a toda la página.
+*/
+body {
+    font-family: 'Readex Pro', sans-serif;
+    scroll-behavior: smooth;
+    background-color: var(--color-light);
+    color: var(--color-dark-text);
+}
+
+/* Estilo para el Hero Section con un fondo de imagen y un gradiente sutil.
+  RECUERDA cambiar la URL de la imagen por una de alta calidad.
+*/
+.hero-section {
+    background-image: url('https://images.unsplash.com/photo-1505455176121-8205a26a96f1?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Efecto Parallax simple */
+}
+
+/* Estilos personalizados para las tarjetas de servicio.
+  Aunque usamos Tailwind, podemos añadir clases propias para agrupar estilos.
+*/
+.service-card {
+    @apply bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300;
+}
+
+.icon-container {
+    @apply w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-6;
+}
+
+/* Estilos base para los inputs del formulario para no repetir clases en el HTML.
+  @apply es una directiva de Tailwind que nos permite usar sus clases aquí.
+*/
+.form-input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300;
+}
+
+/*
+  Clases para los mensajes de estado del formulario (éxito y error)
+*/
+.status-success {
+    @apply text-green-700 bg-green-100 p-4 rounded-lg;
+}
+
+.status-error {
+    @apply text-red-700 bg-red-100 p-4 rounded-lg;
+}
