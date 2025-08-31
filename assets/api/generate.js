@@ -1,22 +1,29 @@
-// api/generate.js - Función Segura en Vercel (Versión a Prueba de Balas)
+// api/generate.js - Función Segura en Vercel (Versión de Diagnóstico)
 
 export default async function handler(request, response) {
-  // 1. Envolvemos TODO en un try...catch para que NUNCA crashee
+  console.log("-----------------------------------------");
+  console.log("Función /api/generate iniciada.");
+
   try {
     if (request.method !== 'POST') {
+      console.log("Error: Método no permitido. Se recibió:", request.method);
       return response.status(405).json({ error: 'Método no permitido.' });
     }
+    console.log("Paso 1: Método POST verificado.");
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      console.error("ERROR CRÍTICO: GEMINI_API_KEY no está configurada en Vercel.");
+      console.error("ERROR CRÍTICO: La variable de entorno GEMINI_API_KEY no está configurada en Vercel.");
       return response.status(500).json({ error: 'Error de configuración del servidor: Falta la API Key.' });
     }
+    console.log("Paso 2: API Key encontrada en Vercel.");
 
     const { userIdea } = request.body;
     if (!userIdea || typeof userIdea !== 'string' || userIdea.trim() === '') {
+      console.log("Error: La idea del proyecto venía vacía.");
       return response.status(400).json({ error: 'La descripción del proyecto no puede estar vacía.' });
     }
+    console.log("Paso 3: Idea recibida del usuario:", userIdea);
 
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
     const systemPrompt = `Actúa como un ingeniero experto en geosintéticos de la empresa Bioliner. 
@@ -30,18 +37,20 @@ export default async function handler(request, response) {
         contents: [{ parts: [{ text: `Idea del cliente: "${userIdea}"` }] }],
         systemInstruction: { parts: [{ text: systemPrompt }] },
     };
-
+    
+    console.log("Paso 4: Preparando la llamada a la API de Gemini...");
     const geminiResponse = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
     });
+    console.log("Paso 5: Respuesta recibida de Gemini. Status:", geminiResponse.status);
 
     const result = await geminiResponse.json();
 
     if (!geminiResponse.ok) {
         const errorMessage = result?.error?.message || 'Error desconocido desde la API de Gemini.';
-        console.error("Error desde la API de Gemini:", errorMessage);
+        console.error("ERROR desde la API de Gemini:", errorMessage);
         throw new Error(errorMessage);
     }
 
@@ -49,11 +58,12 @@ export default async function handler(request, response) {
     if (!text) {
         throw new Error('La respuesta de la IA no contenía texto válido.');
     }
-
+    
+    console.log("Paso 6: Éxito. Enviando texto de vuelta al navegador.");
     return response.status(200).json({ text });
 
   } catch (error) {
-    console.error("Error en la función del servidor (api/generate.js):", error.message);
+    console.error("ERROR FINAL en la función del servidor:", error.message);
     return response.status(500).json({ error: `Hubo un problema en nuestros servidores: ${error.message}` });
   }
 }
