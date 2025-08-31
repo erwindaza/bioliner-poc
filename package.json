@@ -1,6 +1,8 @@
 {
-  "name": "bioliner-poc-final",
+  "name": "bioliner-serverless-poc",
   "version": "1.0.0",
   "private": true,
-  "type": "module"
+  "scripts": {
+    "install": "npm --version"
+  }
 }
