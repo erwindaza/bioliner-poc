@@ -1,5 +1,5 @@
 /*
-  Archivo de Estilos V6 para Bioliner - Final Pulido
+  Archivo de Estilos V7 para Bioliner - Corrección UI/UX
 */
 :root {
     --color-primary-dark: #064e3b;  /* Verde Bosque Oscuro */
@@ -17,13 +17,13 @@ body {
     color: var(--color-dark-text);
 }
 
+/* --- HERO, BOTONES, NAV LINKS --- */
 .hero-section {
     background-image: linear-gradient(45deg, rgba(6, 78, 59, 0.85), rgba(16, 185, 129, 0.7)), url('../images/hero-background.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
 }
-
 .button-primary {
     @apply bg-green-500 text-white font-bold py-2 px-5 rounded-lg transition-all duration-300 transform hover:scale-105 hover:bg-green-600 shadow-md hover:shadow-lg disabled:bg-gray-400 disabled:scale-100;
 }
@@ -34,19 +34,21 @@ body {
     @apply text-gray-600 hover:text-green-600 font-semibold transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-green-500 after:bottom-0 after:left-0 after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
 }
 
-/* --- CORRECCIÓN PARA IMÁGENES HOMOGÉNEAS --- */
+/* --- CORRECCIÓN UI/UX: IMÁGENES HOMOGÉNEAS --- */
 .service-card-v2 {
     @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-b-4 border-transparent hover:border-green-500 flex flex-col;
 }
 .service-image-container {
-    @apply h-48 w-full overflow-hidden; /* Contenedor de altura fija */
+    @apply w-full overflow-hidden;
+    aspect-ratio: 16 / 9; /* Fuerza una proporción panorámica 16:9 */
 }
 .service-image {
     @apply w-full h-full object-cover; /* La imagen cubre el contenedor sin distorsionarse */
 }
 
+/* --- PROYECTOS Y CTA --- */
 .project-card {
-    @apply relative rounded-xl overflow-hidden shadow-lg group cursor-pointer h-96; /* Altura fija para la grilla */
+    @apply relative rounded-xl overflow-hidden shadow-lg group cursor-pointer h-96;
 }
 .project-image {
     @apply w-full h-full object-cover transition-transform duration-500 group-hover:scale-110;
@@ -55,27 +57,28 @@ body {
     @apply absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-8 flex flex-col justify-end text-white;
     @apply opacity-0 group-hover:opacity-100 transition-opacity duration-500;
 }
-
 .cta-section {
     @apply py-20 bg-gradient-to-r from-green-600 to-emerald-800;
 }
 
-/* --- CORRECCIÓN PARA FORMULARIO --- */
+/* --- CORRECCIÓN UI/UX: FORMULARIO MEJORADO --- */
 .form-input {
-    @apply w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300;
+    @apply w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all duration-300 text-base;
+}
+.form-input::placeholder {
+    @apply text-gray-400;
 }
 .contact-info {
     @apply flex flex-col justify-center;
 }
-/* FIN DE CORRECCIONES */
 
+/* --- STATUS Y IA --- */
 .status-success {
     @apply text-green-800 bg-green-100 p-4 rounded-lg border border-green-200;
 }
 .status-error {
     @apply text-red-800 bg-red-100 p-4 rounded-lg border border-red-200;
 }
-
 #ai-result-container { @apply min-h-[100px] mt-6; }
 .ai-result-box { @apply bg-white p-6 rounded-lg border border-green-200 text-gray-700 animate-fade-in; }
 .loading-spinner { @apply w-8 h-8 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mx-auto; }
