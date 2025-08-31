@@ -1,12 +1,12 @@
 /*
-  Archivo de Estilos V7 para Bioliner - Corrección UI/UX
+  Archivo de Estilos V8 para Bioliner - Corrección Final UI/UX
 */
 :root {
-    --color-primary-dark: #064e3b;  /* Verde Bosque Oscuro */
-    --color-primary: #10b981;       /* Verde Esmeralda (Principal) */
-    --color-accent: #6ee7b7;       /* Verde Menta (Acentos) */
-    --color-light: #f0fdf4;         /* Verde muy claro para fondos */
-    --color-dark-text: #064e3b;     /* Texto principal oscuro */
+    --color-primary-dark: #064e3b;
+    --color-primary: #10b981;
+    --color-accent: #6ee7b7;
+    --color-light: #f0fdf4;
+    --color-dark-text: #064e3b;
     --color-light-text: #4b5563;
 }
 
@@ -34,9 +34,10 @@ body {
     @apply text-gray-600 hover:text-green-600 font-semibold transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-green-500 after:bottom-0 after:left-0 after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
 }
 
-/* --- CORRECCIÓN UI/UX: IMÁGENES HOMOGÉNEAS --- */
-.service-card-v2 {
+/* --- CORRECCIÓN UI/UX V2: IMÁGENES Y TARJETAS HOMOGÉNEAS --- */
+.service-card-v3 {
     @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-b-4 border-transparent hover:border-green-500 flex flex-col;
+    /* Usamos flexbox para asegurar que todas las tarjetas ocupen la misma altura */
 }
 .service-image-container {
     @apply w-full overflow-hidden;
@@ -61,9 +62,9 @@ body {
     @apply py-20 bg-gradient-to-r from-green-600 to-emerald-800;
 }
 
-/* --- CORRECCIÓN UI/UX: FORMULARIO MEJORADO --- */
+/* --- CORRECCIÓN UI/UX V2: FORMULARIO MEJORADO --- */
 .form-input {
-    @apply w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all duration-300 text-base;
+    @apply w-full px-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 text-base shadow-inner;
 }
 .form-input::placeholder {
     @apply text-gray-400;
@@ -84,4 +85,5 @@ body {
 .loading-spinner { @apply w-8 h-8 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mx-auto; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
+
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bioliner - Naturaleza e Ingeniería en Geosintéticos</title>
-    <meta name="description" content="Innovación, tecnología y calidad en proyectos de revestimiento con geomembranas y geotextiles para tranques agrícolas, biopiscinas y más.">
+    <meta name="description" content="Innovación y calidad en proyectos de revestimiento con geomembranas y geotextiles para tranques agrícolas, biopiscinas y más.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -54,33 +54,33 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                      <!-- Tarjeta 1 -->
-                    <div class="service-card-v2" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card-v3" data-aos="fade-up" data-aos-delay="100">
                         <div class="service-image-container">
                             <img src="assets/images/hero-background.jpg" alt="Instalación de Geomembranas" class="service-image">
                         </div>
-                        <div class="p-6">
+                        <div class="p-6 flex-grow flex flex-col">
                             <h3 class="text-xl font-bold text-green-900 mb-3">Instalación de Geomembranas</h3>
-                            <p class="text-gray-600">Garantizamos impermeabilización y durabilidad en cada proyecto con geosintéticos de alta calidad.</p>
+                            <p class="text-gray-600 flex-grow">Garantizamos impermeabilización y durabilidad en cada proyecto con geosintéticos de alta calidad.</p>
                         </div>
                     </div>
                     <!-- Tarjeta 2 -->
-                    <div class="service-card-v2" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card-v3" data-aos="fade-up" data-aos-delay="200">
                          <div class="service-image-container">
                             <img src="assets/images/proyecto-tranques-2.jpg" alt="Construcción de Tranques Agrícolas" class="service-image">
                         </div>
-                         <div class="p-6">
+                         <div class="p-6 flex-grow flex flex-col">
                             <h3 class="text-xl font-bold text-green-900 mb-3">Construcción de Tranques</h3>
-                            <p class="text-gray-600">Revestimiento con membranas impermeables que retienen el líquido de forma segura y eficiente.</p>
+                            <p class="text-gray-600 flex-grow">Revestimiento con membranas impermeables que retienen el líquido de forma segura y eficiente.</p>
                         </div>
                     </div>
                     <!-- Tarjeta 3 -->
-                    <div class="service-card-v2" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card-v3" data-aos="fade-up" data-aos-delay="300">
                         <div class="service-image-container">
                             <img src="assets/images/servicio-biopiscina.jpg" alt="Construcción de Biopiscinas" class="service-image">
                         </div>
-                        <div class="p-6">
+                        <div class="p-6 flex-grow flex flex-col">
                             <h3 class="text-xl font-bold text-green-900 mb-3">Construcción de Biopiscinas</h3>
-                            <p class="text-gray-600">Diseño y ejecución de piscinas ecológicas que utilizan plantas para mantener el agua limpia y cristalina.</p>
+                            <p class="text-gray-600 flex-grow">Diseño y ejecución de piscinas ecológicas que utilizan plantas para mantener el agua limpia y cristalina.</p>
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                 <div class="max-w-2xl mx-auto bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-200" data-aos="fade-up" data-aos-delay="200">
                     <div>
                         <label for="project-idea" class="block text-gray-700 font-bold mb-2">Describe tu proyecto:</label>
-                        <textarea id="project-idea" name="project-idea" rows="4" class="form-input" placeholder="Ej: Tranque para cerezas de 5.000 m² en un terreno con pendiente en la VI Región..."></textarea>
+                        <textarea id="project-idea" name="project-idea" rows="4" class="form-input" placeholder="Ej: Tranque para cerezas de 5.000 m²..."></textarea>
                     </div>
                     <div class="text-center mt-6">
                         <button id="generate-btn" class="button-primary w-full">
@@ -152,7 +152,6 @@
                 
                 <div class="max-w-6xl mx-auto" data-aos="fade-up" data-aos-delay="200">
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-12">
-                        <!-- Columna de Información (ocupa 2 de 5 columnas) -->
                         <div class="md:col-span-2 contact-info">
                             <h3 class="text-2xl font-bold text-green-800 mb-6">Información de Contacto</h3>
                             <p class="text-gray-600 mb-8">
@@ -183,21 +182,20 @@
                             </div>
                         </div>
 
-                        <!-- Columna del Formulario (ocupa 3 de 5 columnas) -->
                         <div class="md:col-span-3">
                            <div class="bg-white p-8 rounded-xl shadow-2xl border border-gray-100">
                                 <form id="contact-form" class="space-y-6">
                                     <div>
                                         <label for="name" class="block text-gray-700 font-bold mb-2">Nombre *</label>
-                                        <input type="text" id="name" name="name" required class="form-input">
+                                        <input type="text" id="name" name="name" required class="form-input" placeholder="Tu nombre completo">
                                     </div>
                                     <div>
                                         <label for="email" class="block text-gray-700 font-bold mb-2">Email *</label>
-                                        <input type="email" id="email" name="email" required class="form-input">
+                                        <input type="email" id="email" name="email" required class="form-input" placeholder="ejemplo@correo.com">
                                     </div>
                                     <div>
                                         <label for="message" class="block text-gray-700 font-bold mb-2">Mensaje *</label>
-                                        <textarea id="message" name="message" rows="5" required class="form-input"></textarea>
+                                        <textarea id="message" name="message" rows="5" required class="form-input" placeholder="Cuéntanos sobre tu proyecto..."></textarea>
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" id="submit-btn" class="button-primary w-full py-3">
