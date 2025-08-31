@@ -1,5 +1,4 @@
 // api/generate.js - Función Segura en Vercel (Versión Final)
-// Vercel ya incluye 'fetch' de forma nativa, no necesitamos paquetes externos.
 
 export default async function handler(request, response) {
   try {
