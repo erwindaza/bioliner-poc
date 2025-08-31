@@ -1,6 +1,5 @@
 /*
-  Archivo de Estilos V4 para Bioliner - Tema Verde
-  CSS más avanzado con variables, gradientes y efectos de Glassmorphism.
+  Archivo de Estilos V5 para Bioliner - Formulario Corregido
 */
 :root {
     --color-primary-dark: #064e3b;  /* Verde Bosque Oscuro */
@@ -18,7 +17,6 @@ body {
     color: var(--color-dark-text);
 }
 
-/* Hero Section con gradiente verde y tu imagen de fondo */
 .hero-section {
     background-image: linear-gradient(45deg, rgba(6, 78, 59, 0.85), rgba(16, 185, 129, 0.7)), url('../images/hero-background.jpg');
     background-size: cover;
@@ -26,7 +24,6 @@ body {
     background-attachment: fixed;
 }
 
-/* Componentes reutilizables */
 .button-primary {
     @apply bg-green-500 text-white font-bold py-2 px-5 rounded-lg transition-all duration-300 transform hover:scale-105 hover:bg-green-600 shadow-md hover:shadow-lg disabled:bg-gray-400 disabled:scale-100;
 }
@@ -37,7 +34,6 @@ body {
     @apply text-gray-600 hover:text-green-600 font-semibold transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-green-500 after:bottom-0 after:left-0 after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
 }
 
-/* Tarjetas de Servicio V2 */
 .service-card-v2 {
     @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-b-4 border-transparent hover:border-green-500;
 }
@@ -45,7 +41,6 @@ body {
     @apply w-full h-48 object-cover;
 }
 
-/* Tarjetas de Proyecto */
 .project-card {
     @apply relative rounded-xl overflow-hidden shadow-lg group cursor-pointer;
 }
@@ -57,15 +52,17 @@ body {
     @apply opacity-0 group-hover:opacity-100 transition-opacity duration-500;
 }
 
-/* Nueva Sección de Call to Action (CTA) con gradiente */
 .cta-section {
     @apply py-20 bg-gradient-to-r from-green-600 to-emerald-800;
 }
 
-
-/* Formulario */
+/* ESTILOS DE FORMULARIO MEJORADOS */
 .form-input {
-    @apply w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300;
+    @apply w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300;
+}
+/* Estilos para la columna de información de contacto */
+.contact-info {
+    @apply border-r-0 md:border-r md:border-gray-200 md:pr-12;
 }
 
 .status-success {
@@ -76,21 +73,9 @@ body {
 }
 
 /* Sección IA */
-#ai-result-container {
-    @apply min-h-[100px] mt-6;
-}
-.ai-result-box {
-    @apply bg-white p-6 rounded-lg border border-green-200 text-gray-700 animate-fade-in;
-}
-.loading-spinner {
-    @apply w-8 h-8 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mx-auto;
-}
-
-@keyframes fade-in {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-    animation: fade-in 0.5s ease-out forwards;
-}
+#ai-result-container { @apply min-h-[100px] mt-6; }
+.ai-result-box { @apply bg-white p-6 rounded-lg border border-green-200 text-gray-700 animate-fade-in; }
+.loading-spinner { @apply w-8 h-8 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mx-auto; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
 
